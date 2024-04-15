@@ -1,0 +1,8 @@
+0.*
+postProcessing
+Logs
+Results
+processor*
+PLOT_RESULT*
+*.pdf
+*checkpoint*
