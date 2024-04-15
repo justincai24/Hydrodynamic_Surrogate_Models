@@ -1,0 +1,192 @@
+FoamFile
+{
+    version         2;
+    format          ascii;
+    class           dictionary;
+    object          snappyHexMeshDict;
+}
+
+// Exported by SnappyHexMesh GUI add-on for Blender v1.5
+// Source file: C:\Users\justi\Desktop\College\Senior\SeniorThesis\YamashinaClosedSep.blend
+// Export date: 2024-02-26 00:19:05.828829
+
+// Details about SnappyHexMesh parameters can be found in annotated caseDicts:
+// - For openfoam.org (development version), see
+//   https://github.com/OpenFOAM/OpenFOAM-dev/blob/master/etc/caseDicts/annotated/snappyHexMeshDict
+// - For openfoam.com (development version), see
+//   https://develop.openfoam.com/Development/openfoam/-/blob/master/etc/caseDicts/annotated/snappyHexMeshDict
+// See also links in https://openfoamwiki.net/index.php/SnappyHexMesh
+
+castellatedMesh true;
+snap            true;
+addLayers       false;
+
+geometry
+{
+    in
+    {
+        type triSurfaceMesh;
+        file "in.stl";
+        // Min Bounds = [-4.59219e-01  3.61921e-01 -1.00644e-03]
+        // Max Bounds = [-4.09905e-01  4.11099e-01  2.88139e-02]
+        // Area = 5.56628e-04
+    }
+    out
+    {
+        type triSurfaceMesh;
+        file "out.stl";
+        // Min Bounds = [ 4.77710e-01 -3.40563e-01 -8.61175e-03]
+        // Max Bounds = [ 5.25019e-01 -2.62619e-01  3.55140e-02]
+        // Area = 1.19251e-03
+    }
+    si
+    {
+        type triSurfaceMesh;
+        file "si.stl";
+        // Min Bounds = [-4.63311e-01 -3.40856e-01 -1.16477e-01]
+        // Max Bounds = [ 5.27667e-01  4.09955e-01  1.54358e-01]
+        // Area = 1.03645e-01
+    }
+    walls
+    {
+        type triSurfaceMesh;
+        file "walls.stl";
+        // Min Bounds = [-4.63311e-01 -3.40856e-01 -1.23587e-01]
+        // Max Bounds = [ 5.28239e-01  4.11212e-01  1.54358e-01]
+        // Area = 1.27930e-01
+    }
+}
+
+castellatedMeshControls
+{
+    maxLocalCells   100000;
+    maxGlobalCells  10000000;
+    minRefinementCells 10;
+    maxLoadUnbalance 0.1;
+    nCellsBetweenLevels 4;
+    locationInMesh (0 0 0);
+    allowFreeStandingZoneFaces true;
+    resolveFeatureAngle 30;
+    // useLeakClosure true; // OpenFOAM.com option
+
+    features
+    (
+        {
+            file "in.eMesh";
+            level 0;
+        }
+        {
+            file "out.eMesh";
+            level 0;
+        }
+        {
+            file "si.eMesh";
+            level 0;
+        }
+        {
+            file "walls.eMesh";
+            level 0;
+        }
+
+    );
+
+    refinementSurfaces
+    {
+        in
+        {
+            level (1 2);
+            patchInfo { type patch; }
+        }
+        out
+        {
+            level (1 2);
+            patchInfo { type patch; }
+        }
+        si
+        {
+            level (1 2);
+            patchInfo { type symmetry; }
+        }
+        walls
+        {
+            level (1 2);
+            patchInfo { type wall; }
+        }
+
+    }
+
+    refinementRegions
+    {
+
+    }
+}
+
+snapControls
+{
+    nSmoothPatch    3;
+    nSmoothInternal 3; // OpenFOAM.com option
+    tolerance       2.0;
+    nSolveIter      30;
+    nRelaxIter      5;
+    nFeatureSnapIter 10;
+    implicitFeatureSnap false;
+    explicitFeatureSnap true;
+    multiRegionFeatureSnap true;
+    // nFaceSplitInterval 5; // OpenFOAM.com option
+}
+
+addLayersControls
+{
+    // Layer sizing
+    relativeSizes   true;
+    expansionRatio  1.3;
+    finalLayerThickness 0.3;
+    minThickness    0.001;
+    nGrow           0; // -1;
+
+    // Mesh dependencies
+    featureAngle    130;
+    mergePatchFacesAngle 45; // OpenFOAM.com option
+    layerTerminationAngle -180; // OpenFOAM.com option
+    maxFaceThicknessRatio 0.5;
+
+    // Mesh displacement iterations
+    nSmoothSurfaceNormals 0; // 3 * max number of layers seems good
+    nSmoothThickness 10;
+    nSmoothNormals  0;
+    nSmoothDisplacement 100;
+
+    // Medial axis analysis
+    minMedialAxisAngle 90;
+    maxThicknessToMedialRatio 0.9;
+    slipFeatureAngle 30;
+    nRelaxIter      1;
+
+    // OpenFOAM.com displacement motion solver
+    // meshShrinker displacementMotionSolver;
+    // solver displacementLaplacian;
+    // displacementLaplacianCoeffs { diffusivity quadratic inverseDistance ("wall.*"); }
+
+    // Mesh shrinking overall settings
+    nBufferCellsNoExtrude 0;
+    nLayerIter      50;
+    nRelaxedIter    0;
+    nOuterIter      0; // OpenFOAM.com option, half of max number of layers seems good
+    additionalReporting true;
+
+    layers
+    {
+
+    }
+}
+
+meshQualityControls
+{
+    nSmoothScale    4;
+    errorReduction  0.75;
+    #include "meshQualityDict"
+}
+
+writeFlags      ( scalarLevels layerSets layerFields );
+
+mergeTolerance  1e-06;

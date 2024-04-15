@@ -1,0 +1,43 @@
+FoamFile
+{
+    version         2;
+    format          ascii;
+    class           dictionary;
+    object          surfaceFeaturesDict;
+}
+
+// Exported by SnappyHexMesh GUI add-on for Blender v1.5
+// Source file: C:\Users\justi\Desktop\College\Senior\SeniorThesis\YamashinaClosedSep.blend
+// Export date: 2024-02-26 00:19:05.812435
+
+
+in.stl
+{
+    extractionMethod extractFromSurface;
+    extractFromSurfaceCoeffs { includedAngle 150; }
+    writeObj yes;
+}
+
+out.stl
+{
+    extractionMethod extractFromSurface;
+    extractFromSurfaceCoeffs { includedAngle 150; }
+    writeObj yes;
+}
+
+si.stl
+{
+    extractionMethod extractFromSurface;
+    extractFromSurfaceCoeffs { includedAngle 150; }
+    writeObj yes;
+}
+
+walls.stl
+{
+    extractionMethod extractFromSurface;
+    extractFromSurfaceCoeffs { includedAngle 150; }
+    writeObj yes;
+}
+
+
+

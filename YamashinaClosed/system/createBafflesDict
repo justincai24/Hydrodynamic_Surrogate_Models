@@ -1,0 +1,17 @@
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    object      createBafflesDict;
+}
+
+// Exported by SnappyHexMesh GUI add-on for Blender v1.5
+// Source file: C:\Users\justi\Desktop\College\Senior\SeniorThesis\YamashinaClosedSep.blend
+// Export date: 2024-02-26 00:19:05.812435
+
+internalFacesOnly true;
+
+baffles
+{
+
+}
